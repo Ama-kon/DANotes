@@ -1,6 +1,10 @@
-# danotes
+# DA Notes
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.3.
+
+## Purpose
+
+The main goal of this project is to practice using Firebase. It is not a complete or production-ready project.
 
 ## Development server
 
@@ -25,3 +29,9 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## Acknowledgements
+
+This project is primarily for practicing Firebase. It is not intended to be a fully developed application.
+
+Thank you for checking out this project. Any feedback or suggestions are appreciated!
