@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "danotes-143fb": {
+      "hosting": {
+        "danotes": [
+          "danotes-143fb"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "danotes-143fb"
+  }
+}
