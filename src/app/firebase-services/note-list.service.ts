@@ -4,10 +4,14 @@ import {
   addDoc,
   collection,
   collectionData,
+  query,
+  where,
   deleteDoc,
   doc,
   onSnapshot,
   updateDoc,
+  orderBy,
+  limit,
 } from '@angular/fire/firestore';
 import { Note } from '../interfaces/note.interface';
 
@@ -17,14 +21,17 @@ import { Note } from '../interfaces/note.interface';
 export class NoteListService {
   trashNotes: Note[] = [];
   normalNotes: Note[] = [];
+  normalMarkedNotes: Note[] = [];
 
   unsubTrash;
   unsubNotes;
+  unsubMarkedNotes;
 
   firestore: Firestore = inject(Firestore);
 
   constructor() {
     this.unsubNotes = this.subNotesList();
+    this.unsubMarkedNotes = this.subMarkedNotesList();
     this.unsubTrash = this.subTrashList();
   }
 
@@ -100,10 +107,24 @@ export class NoteListService {
   }
 
   subNotesList() {
-    return onSnapshot(this.getNotesRef(), (list) => {
+    const q = query(this.getNotesRef());
+    return onSnapshot(q, (list) => {
       this.normalNotes = [];
       list.forEach((element) => {
         this.normalNotes.push(this.setNoteObject(element.data(), element.id));
+        console.log(element.id, element.data());
+      });
+    });
+  }
+
+  subMarkedNotesList() {
+    const q = query(this.getNotesRef(), where('marked', '==', true), limit(4));
+    return onSnapshot(q, (list) => {
+      this.normalMarkedNotes = [];
+      list.forEach((element) => {
+        this.normalMarkedNotes.push(
+          this.setNoteObject(element.data(), element.id)
+        );
         console.log(element.id, element.data());
       });
     });
@@ -125,6 +146,9 @@ export class NoteListService {
     }
     if (this.unsubTrash) {
       this.unsubTrash();
+    }
+    if (this.unsubMarkedNotes) {
+      this.unsubMarkedNotes();
     }
   }
 
